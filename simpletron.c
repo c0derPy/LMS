@@ -154,9 +154,11 @@ void load_program(){
 			printf("Instruccion (codigo) no valido, vuelva a ingresar el codigo!\n");	
 			printf("%d ? ", i);
 			scanf("%d", &codigo);		
-		}
-				
-	}	
+		}		
+	}
+
+	printf("** Program loading completed **\n");
+	printf("** Program execution begins **\n\n");	
 }
 
 void show_memory(){
