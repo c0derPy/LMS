@@ -11,7 +11,6 @@
 #define LOAD 20
 #define STORE 21
 
-
 // Operaciones aritmeticas
 #define ADD 30
 #define SUBSTRACT 31
@@ -23,6 +22,7 @@
 #define BRANCHNEG 41
 #define BRANCHZERO 42
 
+// Terminar Programa
 #define HALT 43
 
 // Tamaño de la memoria
@@ -68,7 +68,7 @@ int main(){
 		instructionRegister = memory[instructionCounter];	
 		operationCode = instructionRegister / 100;
 		operand = instructionRegister % 100;
-
+		int i;
 		switch(operationCode){
 			// Entrada
 			case READ:
@@ -99,16 +99,26 @@ int main(){
 				break;
 			// Transferencias de control
 			case BRANCH:
-				if(accumulator == 0)
-					instructionCounter = operand;
+				instructionCounter = operand;
+				continue;
 				break;
 			case BRANCHNEG:
-				if(accumulator < 0)
+				if(accumulator < 0){
 					instructionCounter = operand;
+					//Para que no cambie el valor de instructionCounter
+					//al aumentarle 1 al final del bucle					
+					continue; 
+				}
 				break;
 			case BRANCHZERO:
-				if(accumulator > 0){
-					instructionCounter = operand;				
+				if(accumulator == 0){
+					instructionCounter = operand;
+					continue;
+				}				
+				break;
+			case 50:
+				for(i = 0; i < memory[operand]; i++){
+					operationCode = READ;					
 				}
 				break;
 			// Almacenar y escribir
@@ -129,7 +139,8 @@ int main(){
 				show_memory();
 				empty_memory();		
 				break;
-		}		
+		}
+	
 		++instructionCounter;
 	}	
 
