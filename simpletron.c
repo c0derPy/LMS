@@ -116,17 +116,12 @@ int main(){
 					continue;
 				}				
 				break;
-			case 50:
-				for(i = 0; i < memory[operand]; i++){
-					operationCode = READ;					
-				}
-				break;
 			// Almacenar y escribir
 			case STORE:
 				memory[operand] = accumulator;
 				break;
 			case WRITE:
-				printf("%d\n", memory[operand]);
+				printf("Imprimir: %d\n", memory[operand]);
 				break;
 			case HALT:	
 				printf("** Simpletron execution terminated **\n\n");	
