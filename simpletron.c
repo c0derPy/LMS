@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 // Se definen los codigos de operacion a usar por la LMS
 
@@ -34,12 +35,13 @@ void show_memory();
 void empty_memory();
 // Iniciar la carga de instrucciones en memoria de simpletron
 void load_program();
-
+// Leer programa desde un archivo
+void load_from_file();
 // Memoria de Simpletron
 int memory[MEMORY_SIZE] = {+0000};
 
 int main(){
-	
+		
 	// Mensaje de Bienvenida
 	printf("\t\t** Welcome to simpletron! **\n");
 	printf("\t\t** Please enter your program one instruction **\n");
@@ -60,9 +62,11 @@ int main(){
 	// Las instrucciones no se ejecutan desde la memoria si no que se transfieren a esta variable
 	int instructionRegister = 0;
 	
-	// Cargar programa en memoria	
-	load_program();
-
+	// Cargar programa en memoria desde el programa	
+	//load_program();	
+	// Cargar programa en memoria desde un archivo de texto
+	load_from_file();
+	
 	// Ejecutar programa
 	while(operationCode != HALT){
 		instructionRegister = memory[instructionCounter];	
@@ -190,6 +194,37 @@ void empty_memory(){
 	}
 }
 
+void load_from_file(){
+	FILE* file_code;
+	char file_name[100] = "/home/c0der/Escritorio/LMS1.txt";
+	char line[5];
+	int code;
+	int i = 0;	
+
+	file_code = fopen(file_name, "rt");
+
+	//Si el archivo esta vacio termino el programa
+	if(file_code == NULL){
+		printf("Simpletron execution terminated file code is empty");
+		exit(1);
+	}
+	// Leo el archivo mientras no llegue al final
+	while(!feof(file_code)){
+		fgets(line, 5, file_code); // Guardo la linea en la var line
+		if(!feof(file_code)){
+			//Implementar carga en memoria	
+			code = atoi(line); // Parseo a entero el char
+			if(code >= -9999 && code <= 9999 && code != 0){				
+				memory[i] = code;
+				//printf("%d - ", code);				
+				i++;
+			}
+			
+		}
+	}		
+	fclose(file_code);
+
+}
 
 
 
