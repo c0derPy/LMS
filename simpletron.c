@@ -36,11 +36,11 @@ void empty_memory();
 // Iniciar la carga de instrucciones en memoria de simpletron
 void load_program();
 // Leer programa desde un archivo
-void load_from_file();
+void load_from_file(char *argv[]);
 // Memoria de Simpletron
 int memory[MEMORY_SIZE] = {+0000};
 
-int main(){
+int main(int argc, char *argv[]){
 		
 	// Mensaje de Bienvenida
 	printf("\t\t** Welcome to simpletron! **\n");
@@ -61,11 +61,15 @@ int main(){
 	int operand = 0;
 	// Las instrucciones no se ejecutan desde la memoria si no que se transfieren a esta variable
 	int instructionRegister = 0;
-	
-	// Cargar programa en memoria desde el programa	
-	//load_program();	
-	// Cargar programa en memoria desde un archivo de texto
-	load_from_file();
+		
+	if(argc > 0) {
+		// Cargar programa en memoria desde un archivo de texto
+		load_from_file(argv);	
+	}else{
+		//Cargar programa en memoria desde el programa	
+		load_program();
+	}
+
 	
 	// Ejecutar programa
 	while(operationCode != HALT){
@@ -194,9 +198,9 @@ void empty_memory(){
 	}
 }
 
-void load_from_file(){
+void load_from_file(char *argv[]){
 	FILE* file_code;
-	char file_name[100] = "/home/c0der/Escritorio/LMS1.txt";
+	char file_name[100] = argv[1];
 	char line[5];
 	int code;
 	int i = 0;	
